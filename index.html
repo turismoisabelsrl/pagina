@@ -240,48 +240,46 @@
         nuestro compromiso es ofrecerte un servicio de calidad, eficiente y hecho a tu medida.
       </p>
 
-      <form class="quote-form reveal" id="quoteForm"
-            action="https://docs.google.com/forms/d/e/1FAIpQLSeUdQ5U8xjqUUIzKJ3yjPshhFBLp1mOz1wz1HylEjApIwEZPA/formResponse"
-            method="POST" target="hidden_iframe">
+      <form class="quote-form reveal" id="quoteForm">
         <div class="field">
           <label for="nombre" data-i18n="form.name">Nombre completo *</label>
-          <input type="text" id="nombre" name="entry.1203361063" placeholder="Tu nombre completo" required data-i18n-placeholder="form.namePlaceholder">
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required data-i18n-placeholder="form.namePlaceholder">
         </div>
         <div class="field">
           <label for="email" data-i18n="form.email">Email *</label>
-          <input type="email" id="email" name="entry.217779952" placeholder="tu@email.com" required>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required>
         </div>
         <div class="field">
           <label for="celular" data-i18n="form.cell">Celular *</label>
-          <input type="tel" id="celular" name="entry.65175349" placeholder="11 1234 5678" required>
+          <input type="tel" id="celular" name="celular" placeholder="11 1234 5678" required>
         </div>
         <div class="field">
           <label for="fecha" data-i18n="form.date">Fecha del viaje *</label>
-          <input type="date" id="fecha" name="entry.195633632" required>
+          <input type="date" id="fecha" name="fecha" required>
         </div>
         <div class="field">
           <label for="origen" data-i18n="form.origin">Origen (exacto) *</label>
-          <input type="text" id="origen" name="entry.1438049132" placeholder="Dirección o punto de partida" required data-i18n-placeholder="form.originPlaceholder">
+          <input type="text" id="origen" name="origen" placeholder="Dirección o punto de partida" required data-i18n-placeholder="form.originPlaceholder">
         </div>
         <div class="field">
           <label for="destino" data-i18n="form.destination">Destino (exacto) *</label>
-          <input type="text" id="destino" name="entry.1892933048" placeholder="Dirección o punto de llegada" required data-i18n-placeholder="form.destinationPlaceholder">
+          <input type="text" id="destino" name="destino" placeholder="Dirección o punto de llegada" required data-i18n-placeholder="form.destinationPlaceholder">
         </div>
         <div class="field">
           <label for="horaIda" data-i18n="form.timeOut">Horario de ida *</label>
-          <input type="time" id="horaIda" name="entry.800940484" required>
+          <input type="time" id="horaIda" name="horaIda" required>
         </div>
         <div class="field">
           <label for="horaVuelta" data-i18n="form.timeReturn">Horario de vuelta *</label>
-          <input type="time" id="horaVuelta" name="entry.1539581209" required>
+          <input type="time" id="horaVuelta" name="horaVuelta" required>
         </div>
         <div class="field field-full">
           <label for="pasajeros" data-i18n="form.passengerCount">Cantidad de pasajeros *</label>
-          <input type="number" id="pasajeros" name="entry.1622516856" min="1" placeholder="Ej: 20" required data-i18n-placeholder="form.passengerCountPlaceholder">
+          <input type="number" id="pasajeros" name="pasajeros" min="1" placeholder="Ej: 20" required data-i18n-placeholder="form.passengerCountPlaceholder">
         </div>
         <div class="field field-full">
           <label for="mensaje" data-i18n="form.notes">Notas</label>
-          <textarea id="mensaje" name="entry.1965021352" rows="4" placeholder="Tipo de servicio, paradas, o cualquier detalle que ayude a cotizar mejor" data-i18n-placeholder="form.notesPlaceholder"></textarea>
+          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Tipo de servicio, paradas, o cualquier detalle que ayude a cotizar mejor" data-i18n-placeholder="form.notesPlaceholder"></textarea>
         </div>
         <div class="field field-full form-actions">
           <button type="submit" class="btn btn-primary" data-send="email" data-i18n="form.sendEmail">Enviar por email</button>
@@ -292,7 +290,6 @@
           <p class="form-note" id="formNote" data-i18n="cotizacion.note">Elegí cómo preferís enviarnos tu consulta.</p>
         </div>
       </form>
-      <iframe name="hidden_iframe" id="hidden_iframe" title="Envío de formulario" style="display:none;"></iframe>
     </div>
     <svg class="wave wave-indigo" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,70 C150,10 320,0 470,25 C680,60 850,70 1000,55 C1080,47 1150,42 1200,45 L1200,160 L0,160 Z"/>
