@@ -172,7 +172,7 @@ button{ font:inherit; }
   object-fit:contain;
 }
 .brand-name-img{
-  height:2.3rem; width:auto; display:block;
+  height:1.6rem; width:auto; display:block;
 }
 
 .main-nav{ display:flex; align-items:center; gap:1.75rem; }
