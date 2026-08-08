@@ -190,8 +190,22 @@ button{ font:inherit; }
 .hamburger{
   display:none; flex-direction:column; justify-content:center; gap:.3rem;
   width:2.5rem; height:2.5rem; background:transparent; border:none; cursor:pointer;
+  position:relative; z-index:5; /* por encima del panel del menú (.main-nav), que si no lo tapa */
 }
 .hamburger span{ display:block; width:1.35rem; height:2px; background:var(--white); margin-inline:auto; transition:transform .25s var(--ease), opacity .25s var(--ease); }
+.hamburger.is-active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.is-active span:nth-child(2){ opacity:0; }
+.hamburger.is-active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* Fondo oscuro detrás del panel del menú — permite cerrarlo tocando afuera */
+.nav-overlay{
+  position:fixed; inset:0; z-index:90;
+  background:rgba(6,9,22,.55);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .3s var(--ease), visibility .3s;
+}
+.nav-overlay.is-open{ opacity:1; visibility:visible; pointer-events:auto; }
+@media (min-width:861px){ .nav-overlay{ display:none; } }
 
 /* ==========================================================================
    Language switcher — dropdown
@@ -251,9 +265,14 @@ button{ font:inherit; }
 .lang-menu .lang-btn.is-active{ background:rgba(92,172,228,.16); color:var(--sky-300); }
 
 @media (max-width:480px){
-  .lang-trigger{ padding:.5rem .65rem; gap:.4rem; }
+  .header-inner{ gap:.5rem; }
+  .brand{ gap:.5rem; }
+  .brand-icon{ width:2rem; height:2rem; }
+  .brand-name-img{ height:1.15rem; }
+  .hamburger{ width:2.2rem; height:2.2rem; }
+  .lang-trigger{ padding:.4rem .55rem; gap:.35rem; }
   .lang-trigger .lang-code{ display:none; }
-  .lang-caret{ width:.7rem; height:.7rem; }
+  .lang-caret{ width:.65rem; height:.65rem; }
 }
 
 /* ==========================================================================
