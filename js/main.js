@@ -13,17 +13,35 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // Mobile nav toggle
 const hamburger = document.getElementById('hamburger');
 const mainNav = document.getElementById('mainNav');
+const navOverlay = document.getElementById('navOverlay');
+
+const openNav = () => {
+  mainNav.classList.add('is-open');
+  hamburger.classList.add('is-active');
+  if (navOverlay) navOverlay.classList.add('is-open');
+  hamburger.setAttribute('aria-expanded', 'true');
+};
+const closeNav = () => {
+  mainNav.classList.remove('is-open');
+  hamburger.classList.remove('is-active');
+  if (navOverlay) navOverlay.classList.remove('is-open');
+  hamburger.setAttribute('aria-expanded', 'false');
+};
 
 hamburger.addEventListener('click', () => {
-  const isOpen = mainNav.classList.toggle('is-open');
-  hamburger.setAttribute('aria-expanded', String(isOpen));
+  if (mainNav.classList.contains('is-open')) closeNav(); else openNav();
+});
+
+// Tocar afuera (el fondo oscuro) también cierra el menú
+if (navOverlay) navOverlay.addEventListener('click', closeNav);
+
+// Escape cierra el menú si está abierto
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeNav();
 });
 
 mainNav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mainNav.classList.remove('is-open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  });
+  link.addEventListener('click', closeNav);
 });
 
 // In-page anchor links (nav, hero buttons, scroll cue, footer brand, etc.):
