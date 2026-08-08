@@ -26,6 +26,39 @@ mainNav.querySelectorAll('a').forEach(link => {
   });
 });
 
+// In-page anchor links (nav, hero buttons, scroll cue, footer brand, etc.):
+// scroll to the target ourselves and strip the #hash from the address bar
+// afterwards, instead of letting the browser jump there natively and leave
+// #section sitting in the URL.
+const scrollToHash = (hash, { updateHistory = true } = {}) => {
+  const id = hash.replace('#', '');
+  const target = id ? document.getElementById(id) : null;
+  const headerOffset = header.offsetHeight + 16; // small breathing room below the fixed header
+  const top = target
+    ? target.getBoundingClientRect().top + window.scrollY - headerOffset
+    : 0;
+
+  window.scrollTo({ top: Math.max(top, 0), behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+
+  if (updateHistory) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+};
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+  e.preventDefault();
+  scrollToHash(link.getAttribute('href'));
+});
+
+// If someone lands directly on a link with a #hash (an old bookmark, a
+// link shared before this change, etc.), scroll to that section once,
+// accounting for the fixed header, then clean the hash from the URL.
+if (window.location.hash) {
+  window.addEventListener('load', () => scrollToHash(window.location.hash));
+}
+
 // Hero background parallax — the photo drifts down as you scroll,
 // so it visually sinks behind the wave divider instead of just cutting off.
 const heroSection = document.querySelector('.hero');
