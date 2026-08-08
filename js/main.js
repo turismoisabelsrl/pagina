@@ -200,6 +200,7 @@ const translations = {
     'footer.hoursSunday': 'Domingo de 7 a 14hs',
     'footer.copyright': '© {year} Turismo Isabel. Todos los derechos reservados.',
     'msg.quoteGreeting': 'Hola! Quiero pedir una cotización:',
+    'msg.quoteSubject': 'Pedido de cotización - Turismo Isabel',
     'msg.name': 'Nombre',
     'msg.email': 'Email',
     'msg.cell': 'Celular',
@@ -211,7 +212,7 @@ const translations = {
     'msg.passengers': 'Pasajeros',
     'msg.notes': 'Notas',
     'msg.sending': 'Enviando…',
-    'msg.quoteEmailSuccess': '¡Listo! Recibimos tu consulta, te contestamos por email a la brevedad.',
+    'msg.quoteEmailSuccess': 'Se abrió tu mail con los datos cargados — revisalo y enviálo.',
     'msg.quoteWaSuccess': 'Se abrió WhatsApp con tus datos cargados.',
     'msg.postGreeting': 'Hola! Quiero postularme como chofer:',
     'msg.phone': 'Teléfono',
@@ -288,6 +289,7 @@ const translations = {
     'footer.hoursSunday': 'Sundays, 7 AM–2 PM',
     'footer.copyright': '© {year} Turismo Isabel. All rights reserved.',
     'msg.quoteGreeting': "Hi! I'd like to request a quote:",
+    'msg.quoteSubject': 'Quote Request - Turismo Isabel',
     'msg.name': 'Name',
     'msg.email': 'Email',
     'msg.cell': 'Cell phone',
@@ -299,7 +301,7 @@ const translations = {
     'msg.passengers': 'Passengers',
     'msg.notes': 'Notes',
     'msg.sending': 'Sending…',
-    'msg.quoteEmailSuccess': 'Done! We received your request and will reply by email shortly.',
+    'msg.quoteEmailSuccess': 'Your email app opened with your details — check it and hit send.',
     'msg.quoteWaSuccess': 'WhatsApp opened with your details.',
     'msg.postGreeting': "Hi! I'd like to apply as a driver:",
     'msg.phone': 'Phone',
@@ -376,6 +378,7 @@ const translations = {
     'footer.hoursSunday': 'Domingo, das 7h às 14h',
     'footer.copyright': '© {year} Turismo Isabel. Todos os direitos reservados.',
     'msg.quoteGreeting': 'Olá! Quero pedir um orçamento:',
+    'msg.quoteSubject': 'Pedido de Orçamento - Turismo Isabel',
     'msg.name': 'Nome',
     'msg.email': 'Email',
     'msg.cell': 'Celular',
@@ -387,7 +390,7 @@ const translations = {
     'msg.passengers': 'Passageiros',
     'msg.notes': 'Observações',
     'msg.sending': 'Enviando…',
-    'msg.quoteEmailSuccess': 'Pronto! Recebemos sua consulta, responderemos por email em breve.',
+    'msg.quoteEmailSuccess': 'Seu email abriu com seus dados — confira e envie.',
     'msg.quoteWaSuccess': 'O WhatsApp abriu com seus dados preenchidos.',
     'msg.postGreeting': 'Olá! Quero me candidatar como motorista:',
     'msg.phone': 'Telefone',
@@ -515,60 +518,57 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
 
 // ---------------------------------------------------------------
 // COTIZACIÓN
-// "Enviar por email" postea al Google Form de siempre (vía el
-// <iframe id="hidden_iframe"> oculto, para no salir de la página).
-// "Enviar por WhatsApp" abre wa.me con los datos ya redactados.
-// Si en algún momento cambia el Google Form, actualizá el `action`
-// del <form id="quoteForm"> y los `name="entry.…"` de cada input
-// (Form → ⋮ → "Obtener enlace con campos completados" para ver
-// cada entry ID).
+// "Enviar por email" abre el cliente de mail (mailto) del visitante
+// con el asunto y el cuerpo ya redactados con los datos del formulario.
+// "Enviar por WhatsApp" abre wa.me con el mismo texto. Ninguno de los
+// dos pasa por Google Forms ni por ningún servidor propio — ambos son
+// simplemente enlaces (mailto: / wa.me) que arma el navegador del
+// visitante; el envío final lo hace su propio cliente de mail o
+// WhatsApp. Cambiá `destinoMail` más abajo si en algún momento la
+// casilla de reservas cambia.
 // ---------------------------------------------------------------
 (function setupQuoteForm() {
   const form = document.getElementById('quoteForm');
   if (!form) return;
 
   const showNote = makeNoteHelper(document.getElementById('formNote'), 'cotizacion.note');
-  const emailBtn = form.querySelector('[data-send="email"]');
-  const waBtn = form.querySelector('[data-send="whatsapp"]');
-  const hiddenIframe = document.getElementById('hidden_iframe');
-  let isSubmitting = false;
+  const destinoMail = 'turismoisabelreservas@gmail.com';
 
-  form.addEventListener('submit', () => {
-    // Dejamos que la validación nativa de HTML5 actúe: si el formulario
-    // no es válido, el navegador cancela el submit y esto no se ejecuta.
+  const buildQuoteLines = () => [
+    `${t('msg.name')}: ${fieldValue(form, 'nombre')}`,
+    `${t('msg.email')}: ${fieldValue(form, 'email')}`,
+    `${t('msg.cell')}: ${fieldValue(form, 'celular')}`,
+    `${t('msg.date')}: ${fieldValue(form, 'fecha')}`,
+    `${t('msg.origin')}: ${fieldValue(form, 'origen')}`,
+    `${t('msg.destination')}: ${fieldValue(form, 'destino')}`,
+    `${t('msg.timeOut')}: ${fieldValue(form, 'horaIda')}`,
+    `${t('msg.timeReturn')}: ${fieldValue(form, 'horaVuelta')}`,
+    `${t('msg.passengers')}: ${fieldValue(form, 'pasajeros')}`,
+    `${t('msg.notes')}: ${fieldValue(form, 'mensaje') || '-'}`,
+  ];
+
+  // El botón "Enviar por email" es el submit del form: dejamos que la
+  // validación nativa de HTML5 actúe (si falta un campo requerido, el
+  // navegador cancela el submit y este handler no llega a ejecutarse),
+  // y en lugar de postear a ningún lado abrimos un mailto: con todo
+  // ya redactado.
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
     if (!form.checkValidity()) return;
-    isSubmitting = true;
-    if (emailBtn) { emailBtn.disabled = true; emailBtn.textContent = t('msg.sending'); }
-    if (waBtn) waBtn.disabled = true;
+
+    const lines = buildQuoteLines();
+    const subject = encodeURIComponent(t('msg.quoteSubject'));
+    const body = encodeURIComponent([t('msg.quoteGreeting'), ...lines].join('\n'));
+    window.location.href = `mailto:${destinoMail}?subject=${subject}&body=${body}`;
+
+    showNote(t('msg.quoteEmailSuccess'), 'is-success');
   });
 
-  if (hiddenIframe) {
-    hiddenIframe.addEventListener('load', () => {
-      if (!isSubmitting) return;
-      isSubmitting = false;
-      form.reset();
-      showNote(t('msg.quoteEmailSuccess'), 'is-success');
-      if (emailBtn) { emailBtn.disabled = false; emailBtn.textContent = t('form.sendEmail'); }
-      if (waBtn) waBtn.disabled = false;
-    });
-  }
-
+  const waBtn = form.querySelector('[data-send="whatsapp"]');
   if (waBtn) {
     waBtn.addEventListener('click', () => {
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      const text = [
-        t('msg.quoteGreeting'),
-        `${t('msg.name')}: ${fieldValue(form, 'nombre')}`,
-        `${t('msg.email')}: ${fieldValue(form, 'email')}`,
-        `${t('msg.cell')}: ${fieldValue(form, 'celular')}`,
-        `${t('msg.date')}: ${fieldValue(form, 'fecha')}`,
-        `${t('msg.origin')}: ${fieldValue(form, 'origen')}`,
-        `${t('msg.destination')}: ${fieldValue(form, 'destino')}`,
-        `${t('msg.timeOut')}: ${fieldValue(form, 'horaIda')}`,
-        `${t('msg.timeReturn')}: ${fieldValue(form, 'horaVuelta')}`,
-        `${t('msg.passengers')}: ${fieldValue(form, 'pasajeros')}`,
-        `${t('msg.notes')}: ${fieldValue(form, 'mensaje') || '-'}`,
-      ].join('\n');
+      const text = [t('msg.quoteGreeting'), ...buildQuoteLines()].join('\n');
       window.open(`https://wa.me/5491153061418?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       showNote(t('msg.quoteWaSuccess'), 'is-success');
     });
