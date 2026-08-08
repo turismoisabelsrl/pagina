@@ -187,7 +187,7 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
         `Pasajeros: ${fieldValue(form, 'pasajeros')}`,
         `Notas: ${fieldValue(form, 'mensaje') || '-'}`,
       ].join('\n');
-      window.open(`https://wa.me/5491151821276?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      window.open(`https://wa.me/5491153061418?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       showNote('Se abrió WhatsApp con tus datos cargados.', 'is-success');
     });
   }
@@ -197,9 +197,10 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
 // POSTULACIONES
 // "Enviar por email" abre el cliente de mail (mailto) con asunto y
 // cuerpo precargados. "Enviar por WhatsApp" abre wa.me. Ninguno de
-// los dos puede llevar el CV adjunto automáticamente (ni mailto ni
-// wa.me soportan archivos por URL) — por eso, si el postulante eligió
-// un archivo, se lo recordamos en la nota debajo de los botones.
+// los dos puede llevar el CV ni el Registro adjuntos automáticamente
+// (ni mailto ni wa.me soportan archivos por URL) — por eso ya no hay
+// campo de carga de archivo: el formulario solo le recuerda al
+// postulante que los adjunte él mismo en el mail o chat que se abra.
 // Cambiá el mail de destino más abajo si RRHH usa una casilla
 // distinta a la que está puesta.
 // ---------------------------------------------------------------
@@ -209,49 +210,34 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
 
   const showNote = makeNoteHelper(document.getElementById('postulacionFormNote'));
   const waBtn = form.querySelector('[data-send="whatsapp"]');
-  const fileInput = form.querySelector('input[type="file"]');
   const destinoMail = 'turismoisabelrrhh@gmail.com';
 
-  const buildMessage = () => {
-    const hasFile = !!(fileInput && fileInput.files && fileInput.files.length);
-    const lines = [
-      `Nombre: ${fieldValue(form, 'postNombre')}`,
-      `Email: ${fieldValue(form, 'postEmail')}`,
-      `Teléfono: ${fieldValue(form, 'postTelefono')}`,
-      `Experiencia: ${fieldValue(form, 'postExperiencia') || '-'}`,
-    ];
-    return { lines, hasFile };
-  };
+  const buildMessage = () => [
+    `Nombre: ${fieldValue(form, 'postNombre')}`,
+    `Email: ${fieldValue(form, 'postEmail')}`,
+    `Teléfono: ${fieldValue(form, 'postTelefono')}`,
+    `Experiencia: ${fieldValue(form, 'postExperiencia') || '-'}`,
+  ];
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    const { lines, hasFile } = buildMessage();
+    const lines = buildMessage();
     const subject = encodeURIComponent('Postulación Chofer - Turismo Isabel');
     const body = encodeURIComponent(lines.join('\n'));
     window.location.href = `mailto:${destinoMail}?subject=${subject}&body=${body}`;
 
-    showNote(
-      hasFile
-        ? 'Se abrió tu mail con tus datos — no te olvides de adjuntar el CV antes de enviarlo.'
-        : 'Se abrió tu mail con tus datos cargados.',
-      'is-success'
-    );
+    showNote('Se abrió tu mail con tus datos — no te olvides de adjuntar el CV y el Registro antes de enviarlo.', 'is-success');
   });
 
   if (waBtn) {
     waBtn.addEventListener('click', () => {
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      const { lines, hasFile } = buildMessage();
+      const lines = buildMessage();
       const text = ['Hola! Quiero postularme como chofer:', ...lines].join('\n');
       window.open(`https://wa.me/5491151821276?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-      showNote(
-        hasFile
-          ? 'Se abrió WhatsApp con tus datos — no te olvides de adjuntar el CV en el chat.'
-          : 'Se abrió WhatsApp con tus datos cargados.',
-        'is-success'
-      );
+      showNote('Se abrió WhatsApp con tus datos — no te olvides de adjuntar el CV y el Registro en el chat.', 'is-success');
     });
   }
 })();
