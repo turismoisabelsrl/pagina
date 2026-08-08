@@ -410,18 +410,54 @@ function applyLanguage(lang) {
     el.textContent = t(el.getAttribute('data-i18n-template')).replace('{year}', year);
   });
 
+  let activeBtn = null;
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const isActive = btn.getAttribute('data-lang') === lang;
     btn.classList.toggle('is-active', isActive);
-    btn.setAttribute('aria-pressed', String(isActive));
+    btn.setAttribute('aria-selected', String(isActive));
+    if (isActive) activeBtn = btn;
   });
+
+  // Reflejar la selección actual en el botón disparador del desplegable
+  // (bandera + código de idioma), clonando la bandera del ítem activo.
+  const triggerFlag = document.getElementById('langTriggerFlag');
+  const triggerCode = document.getElementById('langTriggerCode');
+  if (activeBtn && triggerFlag) {
+    const flagSvg = activeBtn.querySelector('.flag');
+    if (flagSvg) triggerFlag.innerHTML = flagSvg.outerHTML;
+  }
+  if (triggerCode) triggerCode.textContent = lang.toUpperCase();
 
   try { localStorage.setItem('ti-lang', lang); } catch (err) { /* localStorage no disponible, seguimos igual */ }
 }
 
 (function setupLangSwitch() {
   const switcher = document.getElementById('langSwitch');
-  if (!switcher) return;
+  const trigger = document.getElementById('langTrigger');
+  const menu = document.getElementById('langMenu');
+  if (!switcher || !trigger || !menu) return;
+
+  const closeMenu = () => {
+    switcher.classList.remove('is-open');
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+  const openMenu = () => {
+    switcher.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+  };
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (switcher.classList.contains('is-open')) closeMenu(); else openMenu();
+  });
+
+  // Cerrar al hacer clic afuera o al apretar Escape
+  document.addEventListener('click', (e) => {
+    if (!switcher.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
 
   let saved = null;
   try { saved = localStorage.getItem('ti-lang'); } catch (err) { /* ignorar */ }
@@ -429,7 +465,11 @@ function applyLanguage(lang) {
   applyLanguage(initialLang);
 
   switcher.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
+    btn.addEventListener('click', () => {
+      applyLanguage(btn.getAttribute('data-lang'));
+      closeMenu();
+      trigger.focus();
+    });
   });
 })();
 
