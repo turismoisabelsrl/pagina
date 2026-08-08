@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<a class="skip-link" href="#main">Saltar al contenido</a>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Saltar al contenido</a>
 
 <!-- ===== NAV ===== -->
 <header class="site-header" id="siteHeader">
@@ -25,19 +25,55 @@
     </a>
 
     <nav class="main-nav" id="mainNav">
-      <a href="#flota">Flota</a>
-      <a href="#confianza">Habilitaciones</a>
-      <a href="#cotizacion">Cotización</a>
-      <a href="#postulaciones">Postulaciones</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#flota" data-i18n="nav.flota">Flota</a>
+      <a href="#confianza" data-i18n="nav.confianza">Habilitaciones</a>
+      <a href="#cotizacion" data-i18n="nav.cotizacion">Cotización</a>
+      <a href="#postulaciones" data-i18n="nav.postulaciones">Postulaciones</a>
+      <a href="#contacto" data-i18n="nav.contacto">Contacto</a>
     </nav>
+
+    <div class="lang-switch" id="langSwitch" role="group" aria-label="Seleccionar idioma / Select language / Selecionar idioma">
+      <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" title="Español (Argentina)">
+        <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+          <rect width="30" height="20" fill="#fff"/>
+          <rect width="30" height="6.4" fill="#75AADB"/>
+          <rect y="13.6" width="30" height="6.4" fill="#75AADB"/>
+          <circle cx="15" cy="10" r="2.3" fill="#F6B40E" stroke="#85340A" stroke-width="0.3"/>
+        </svg>
+        <span class="lang-code">ES</span>
+      </button>
+      <button type="button" class="lang-btn" data-lang="pt" aria-pressed="false" title="Português (Brasil)">
+        <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+          <rect width="30" height="20" fill="#009739"/>
+          <polygon points="15,2.5 27.5,10 15,17.5 2.5,10" fill="#FEDD00"/>
+          <circle cx="15" cy="10" r="4.3" fill="#012169"/>
+        </svg>
+        <span class="lang-code">PT</span>
+      </button>
+      <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" title="English (US)">
+        <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+          <rect width="30" height="20" fill="#fff"/>
+          <g fill="#B22234">
+            <rect y="0" width="30" height="1.54"/>
+            <rect y="3.08" width="30" height="1.54"/>
+            <rect y="6.15" width="30" height="1.54"/>
+            <rect y="9.23" width="30" height="1.54"/>
+            <rect y="12.31" width="30" height="1.54"/>
+            <rect y="15.38" width="30" height="1.54"/>
+            <rect y="18.46" width="30" height="1.54"/>
+          </g>
+          <rect width="13" height="10.77" fill="#3C3B6E"/>
+        </svg>
+        <span class="lang-code">EN</span>
+      </button>
+    </div>
 
     <a href="https://wa.me/5491151821276" target="_blank" rel="noopener" class="btn btn-ghost nav-cta">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.6 6.3A8.9 8.9 0 0 0 3.3 16.9L2 22l5.2-1.4A8.9 8.9 0 0 0 21 12.1a8.9 8.9 0 0 0-3.4-5.8Zm-5.6 13.6h-.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.8.8.8-2.7-.2-.3a7.4 7.4 0 1 1 6.4 3.4Zm4-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1s-.6.7-.7.8-.3.2-.5.1a6 6 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.6 10.6 0 0 0 4.2 3.7c.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.3-.5 1.5-1s.2-.9.1-1c0-.1-.2-.2-.4-.3Z"/></svg>
       <span>WhatsApp</span>
     </a>
 
-    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menú">
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menú" data-i18n-aria="a11y.openMenu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -54,19 +90,19 @@
 
     <div class="wrap hero-inner">
       <img src="assets/logo-icon.png" alt="Turismo Isabel" class="hero-logo" width="88" height="88">
-      <h1 class="hero-title">Más que un transporte,<br>una experiencia.</h1>
+      <h1 class="hero-title" data-i18n-html="hero.title">Más que un transporte,<br>una experiencia.</h1>
 
       <div class="hero-cta-row">
         <div class="hero-actions">
-          <a href="#cotizacion" class="btn btn-primary">Solicitar cotización</a>
-          <a href="mailto:turismoisabelreservas@gmail.com" class="btn btn-outline">Atención Comercial</a>
+          <a href="#cotizacion" class="btn btn-primary" data-i18n="hero.ctaQuote">Solicitar cotización</a>
+          <a href="mailto:turismoisabelreservas@gmail.com" class="btn btn-outline" data-i18n="hero.ctaSales">Atención Comercial</a>
         </div>
 
-        <a href="#flota" class="scroll-cue" aria-label="Bajar a la siguiente sección">
+        <a href="#flota" class="scroll-cue" aria-label="Bajar a la siguiente sección" data-i18n-aria="a11y.scrollDown">
           <span class="road-line" aria-hidden="true"></span>
         </a>
 
-        <div class="hero-social" aria-label="Redes sociales">
+        <div class="hero-social" aria-label="Redes sociales" data-i18n-aria="a11y.social">
         <a href="https://wa.me/5491151821276" target="_blank" rel="noopener" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M17.6 6.3A8.9 8.9 0 0 0 3.3 16.9L2 22l5.2-1.4A8.9 8.9 0 0 0 21 12.1a8.9 8.9 0 0 0-3.4-5.8Zm-5.6 13.6h-.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.8.8.8-2.7-.2-.3a7.4 7.4 0 1 1 6.4 3.4Zm4-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1s-.6.7-.7.8-.3.2-.5.1a6 6 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.6 10.6 0 0 0 4.2 3.7c.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.3-.5 1.5-1s.2-.9.1-1c0-.1-.2-.2-.4-.3Z"/></svg>
         </a>
@@ -94,9 +130,9 @@
   <!-- ===== FLOTA ===== -->
   <section class="section section-navy" id="flota">
     <div class="wrap">
-      <p class="eyebrow eyebrow-light">Unidades Propias · Mantenimiento y Control Diario</p>
-      <h2 class="section-title">Nuestra Flota</h2>
-      <p class="section-lead">
+      <p class="eyebrow eyebrow-light" data-i18n="flota.eyebrow">Unidades Propias · Mantenimiento y Control Diario</p>
+      <h2 class="section-title" data-i18n="flota.title">Nuestra Flota</h2>
+      <p class="section-lead" data-i18n="flota.lead">
         Contamos con combis modernas, con capacidad para 19 y 24 pasajeros. Nuestros choferes profesionales
         están certificados para garantizarte un servicio seguro y de máxima confianza.
       </p>
@@ -111,11 +147,11 @@
             <p class="fleet-maker">Mercedes-Benz</p>
             <h3 class="fleet-model">Sprinter 19</h3>
             <ul class="fleet-specs">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Monitoreo por GPS</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7.5" r="2.6"/><path d="M3.5 20c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3"/><circle cx="17.5" cy="8.5" r="2"/><path d="M15.3 20c.2-2.4 1.9-4.3 3.9-4.6"/></svg><span class="mono">19</span> Pasajeros</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>Aire Acondicionado y Calefacción</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>Micrófono</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="3.5" height="6" rx="1.5"/><rect x="18" y="13" width="3.5" height="6" rx="1.5"/><path d="M19.75 19v1.25a2.75 2.75 0 0 1-2.75 2.75h-2.5"/></svg>Mesa operativa</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg><span data-i18n="flota.spec.gps">Monitoreo por GPS</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7.5" r="2.6"/><path d="M3.5 20c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3"/><circle cx="17.5" cy="8.5" r="2"/><path d="M15.3 20c.2-2.4 1.9-4.3 3.9-4.6"/></svg><span class="mono">19</span> <span data-i18n="flota.spec.passengers">Pasajeros</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg><span data-i18n="flota.spec.ac">Aire Acondicionado y Calefacción</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg><span data-i18n="flota.spec.mic">Micrófono</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="3.5" height="6" rx="1.5"/><rect x="18" y="13" width="3.5" height="6" rx="1.5"/><path d="M19.75 19v1.25a2.75 2.75 0 0 1-2.75 2.75h-2.5"/></svg><span data-i18n="flota.spec.desk">Mesa operativa</span></li>
             </ul>
           </div>
         </article>
@@ -128,11 +164,11 @@
             <p class="fleet-maker">Iveco</p>
             <h3 class="fleet-model">Mini Bus 24</h3>
             <ul class="fleet-specs">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>Monitoreo por GPS</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7.5" r="2.6"/><path d="M3.5 20c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3"/><circle cx="17.5" cy="8.5" r="2"/><path d="M15.3 20c.2-2.4 1.9-4.3 3.9-4.6"/></svg><span class="mono">24</span> Pasajeros</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>Aire Acondicionado y Calefacción</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>Micrófono</li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="3.5" height="6" rx="1.5"/><rect x="18" y="13" width="3.5" height="6" rx="1.5"/><path d="M19.75 19v1.25a2.75 2.75 0 0 1-2.75 2.75h-2.5"/></svg>Mesa operativa</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg><span data-i18n="flota.spec.gps">Monitoreo por GPS</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7.5" r="2.6"/><path d="M3.5 20c0-3 2.4-5.3 5.5-5.3s5.5 2.3 5.5 5.3"/><circle cx="17.5" cy="8.5" r="2"/><path d="M15.3 20c.2-2.4 1.9-4.3 3.9-4.6"/></svg><span class="mono">24</span> <span data-i18n="flota.spec.passengers">Pasajeros</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg><span data-i18n="flota.spec.ac">Aire Acondicionado y Calefacción</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg><span data-i18n="flota.spec.mic">Micrófono</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="3.5" height="6" rx="1.5"/><rect x="18" y="13" width="3.5" height="6" rx="1.5"/><path d="M19.75 19v1.25a2.75 2.75 0 0 1-2.75 2.75h-2.5"/></svg><span data-i18n="flota.spec.desk">Mesa operativa</span></li>
             </ul>
           </div>
         </article>
@@ -148,9 +184,9 @@
   <section class="section section-paper section-confianza" id="confianza">
     <div class="wrap confianza-grid">
       <div class="reveal confianza-copy">
-        <p class="eyebrow">Viajá con total tranquilidad</p>
-        <h2 class="section-title section-title-dark">Habilitaciones</h2>
-        <p class="section-lead section-lead-dark center">
+        <p class="eyebrow" data-i18n="confianza.eyebrow">Viajá con total tranquilidad</p>
+        <h2 class="section-title section-title-dark" data-i18n="confianza.title">Habilitaciones</h2>
+        <p class="section-lead section-lead-dark center" data-i18n="confianza.lead">
           En Turismo Isabel contamos con todas las habilitaciones para operar tanto en destinos
           nacionales como internacionales.
         </p>
@@ -158,11 +194,11 @@
       <ul class="check-list reveal">
         <li>
           <span class="check-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span>Habilitaciones Nacionales</span>
+          <span data-i18n="confianza.national">Habilitaciones Nacionales</span>
         </li>
         <li>
           <span class="check-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span>Habilitaciones Internacionales</span>
+          <span data-i18n="confianza.international">Habilitaciones Internacionales</span>
         </li>
       </ul>
     </div>
@@ -174,8 +210,8 @@
   <!-- ===== COTIZACIÓN ===== -->
   <section class="section section-paper" id="cotizacion">
     <div class="wrap">
-      <h2 class="section-title-center section-title-dark">Solicita tu cotización</h2>
-      <p class="section-lead section-lead-dark center">
+      <h2 class="section-title-center section-title-dark" data-i18n="cotizacion.title">Solicita tu cotización</h2>
+      <p class="section-lead section-lead-dark center" data-i18n="cotizacion.lead">
         Para ofrecerte la mejor cotización posible, completá el siguiente formulario con la información
         de tu viaje. Cuanto más detalles nos brindes, más precisa será nuestra propuesta. En Turismo Isabel
         nuestro compromiso es ofrecerte un servicio de calidad, eficiente y hecho a tu medida.
@@ -185,52 +221,52 @@
             action="https://docs.google.com/forms/d/e/1FAIpQLSeUdQ5U8xjqUUIzKJ3yjPshhFBLp1mOz1wz1HylEjApIwEZPA/formResponse"
             method="POST" target="hidden_iframe">
         <div class="field">
-          <label for="nombre">Nombre completo *</label>
-          <input type="text" id="nombre" name="entry.1203361063" placeholder="Tu nombre completo" required>
+          <label for="nombre" data-i18n="form.name">Nombre completo *</label>
+          <input type="text" id="nombre" name="entry.1203361063" placeholder="Tu nombre completo" required data-i18n-placeholder="form.namePlaceholder">
         </div>
         <div class="field">
-          <label for="email">Email *</label>
+          <label for="email" data-i18n="form.email">Email *</label>
           <input type="email" id="email" name="entry.217779952" placeholder="tu@email.com" required>
         </div>
         <div class="field">
-          <label for="celular">Celular *</label>
+          <label for="celular" data-i18n="form.cell">Celular *</label>
           <input type="tel" id="celular" name="entry.65175349" placeholder="11 1234 5678" required>
         </div>
         <div class="field">
-          <label for="fecha">Fecha del viaje *</label>
+          <label for="fecha" data-i18n="form.date">Fecha del viaje *</label>
           <input type="date" id="fecha" name="entry.195633632" required>
         </div>
         <div class="field">
-          <label for="origen">Origen (exacto) *</label>
-          <input type="text" id="origen" name="entry.1438049132" placeholder="Dirección o punto de partida" required>
+          <label for="origen" data-i18n="form.origin">Origen (exacto) *</label>
+          <input type="text" id="origen" name="entry.1438049132" placeholder="Dirección o punto de partida" required data-i18n-placeholder="form.originPlaceholder">
         </div>
         <div class="field">
-          <label for="destino">Destino (exacto) *</label>
-          <input type="text" id="destino" name="entry.1892933048" placeholder="Dirección o punto de llegada" required>
+          <label for="destino" data-i18n="form.destination">Destino (exacto) *</label>
+          <input type="text" id="destino" name="entry.1892933048" placeholder="Dirección o punto de llegada" required data-i18n-placeholder="form.destinationPlaceholder">
         </div>
         <div class="field">
-          <label for="horaIda">Horario de ida *</label>
+          <label for="horaIda" data-i18n="form.timeOut">Horario de ida *</label>
           <input type="time" id="horaIda" name="entry.800940484" required>
         </div>
         <div class="field">
-          <label for="horaVuelta">Horario de vuelta *</label>
+          <label for="horaVuelta" data-i18n="form.timeReturn">Horario de vuelta *</label>
           <input type="time" id="horaVuelta" name="entry.1539581209" required>
         </div>
         <div class="field field-full">
-          <label for="pasajeros">Cantidad de pasajeros *</label>
-          <input type="number" id="pasajeros" name="entry.1622516856" min="1" placeholder="Ej: 20" required>
+          <label for="pasajeros" data-i18n="form.passengerCount">Cantidad de pasajeros *</label>
+          <input type="number" id="pasajeros" name="entry.1622516856" min="1" placeholder="Ej: 20" required data-i18n-placeholder="form.passengerCountPlaceholder">
         </div>
         <div class="field field-full">
-          <label for="mensaje">Notas</label>
-          <textarea id="mensaje" name="entry.1965021352" rows="4" placeholder="Tipo de servicio, paradas, o cualquier detalle que ayude a cotizar mejor"></textarea>
+          <label for="mensaje" data-i18n="form.notes">Notas</label>
+          <textarea id="mensaje" name="entry.1965021352" rows="4" placeholder="Tipo de servicio, paradas, o cualquier detalle que ayude a cotizar mejor" data-i18n-placeholder="form.notesPlaceholder"></textarea>
         </div>
         <div class="field field-full form-actions">
-          <button type="submit" class="btn btn-primary" data-send="email">Enviar por email</button>
+          <button type="submit" class="btn btn-primary" data-send="email" data-i18n="form.sendEmail">Enviar por email</button>
           <button type="button" class="btn btn-whatsapp" data-send="whatsapp">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.6 6.3A8.9 8.9 0 0 0 3.3 16.9L2 22l5.2-1.4A8.9 8.9 0 0 0 21 12.1a8.9 8.9 0 0 0-3.4-5.8Zm-5.6 13.6h-.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.8.8.8-2.7-.2-.3a7.4 7.4 0 1 1 6.4 3.4Zm4-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1s-.6.7-.7.8-.3.2-.5.1a6 6 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.6 10.6 0 0 0 4.2 3.7c.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.3-.5 1.5-1s.2-.9.1-1c0-.1-.2-.2-.4-.3Z"/></svg>
-            Enviar por WhatsApp
+            <span data-i18n="form.sendWhatsapp">Enviar por WhatsApp</span>
           </button>
-          <p class="form-note" id="formNote">Elegí cómo preferís enviarnos tu consulta.</p>
+          <p class="form-note" id="formNote" data-i18n="cotizacion.note">Elegí cómo preferís enviarnos tu consulta.</p>
         </div>
       </form>
       <iframe name="hidden_iframe" id="hidden_iframe" title="Envío de formulario" style="display:none;"></iframe>
@@ -243,45 +279,45 @@
   <!-- ===== POSTULACIONES ===== -->
   <section class="section section-postulaciones" id="postulaciones">
     <div class="wrap">
-      <p class="eyebrow eyebrow-amber">¿Manejás profesionalmente?</p>
-      <h2 class="section-title-center">Podés ser parte de nuestro equipo</h2>
-      <p class="section-lead center">
+      <p class="eyebrow eyebrow-amber" data-i18n="postulaciones.eyebrow">¿Manejás profesionalmente?</p>
+      <h2 class="section-title-center" data-i18n="postulaciones.title">Podés ser parte de nuestro equipo</h2>
+      <p class="section-lead center" data-i18n="postulaciones.lead">
         Si tenés experiencia en transporte de pasajeros, contanos sobre vos y dejanos tu CV.
         Nos vamos a contactar en caso de necesitar coordinar una entrevista.
       </p>
 
       <form class="quote-form reveal" id="postulacionForm">
         <div class="field">
-          <label for="postNombre">Nombre completo *</label>
-          <input type="text" id="postNombre" name="nombre" placeholder="Tu nombre completo" required>
+          <label for="postNombre" data-i18n="form.name">Nombre completo *</label>
+          <input type="text" id="postNombre" name="nombre" placeholder="Tu nombre completo" required data-i18n-placeholder="form.namePlaceholder">
         </div>
         <div class="field">
-          <label for="postEmail">Email *</label>
+          <label for="postEmail" data-i18n="form.email">Email *</label>
           <input type="email" id="postEmail" name="email" placeholder="tu@email.com" required>
         </div>
         <div class="field">
-          <label for="postTelefono">Teléfono *</label>
+          <label for="postTelefono" data-i18n="form.phone">Teléfono *</label>
           <input type="tel" id="postTelefono" name="telefono" placeholder="11 1234 5678" required>
         </div>
         <div class="field">
-          <p class="field-static-label">CV</p>
-          <p class="field-hint">Adjuntalo vos en el mail o WhatsApp que se abra al enviar este formulario.</p>
+          <p class="field-static-label" data-i18n="postulaciones.cv">CV</p>
+          <p class="field-hint" data-i18n="postulaciones.attachHint">Adjuntalo vos en el mail o WhatsApp que se abra al enviar este formulario.</p>
         </div>
         <div class="field">
-          <p class="field-static-label">Registro</p>
-          <p class="field-hint">Adjuntalo vos en el mail o WhatsApp que se abra al enviar este formulario.</p>
+          <p class="field-static-label" data-i18n="postulaciones.registro">Registro</p>
+          <p class="field-hint" data-i18n="postulaciones.attachHint">Adjuntalo vos en el mail o WhatsApp que se abra al enviar este formulario.</p>
         </div>
         <div class="field field-full">
-          <label for="postExperiencia">Contanos tu experiencia</label>
-          <textarea id="postExperiencia" name="experiencia" rows="4" placeholder="Años de experiencia, tipo de licencia, rutas o servicios habituales, etc."></textarea>
+          <label for="postExperiencia" data-i18n="postulaciones.experienceLabel">Contanos tu experiencia</label>
+          <textarea id="postExperiencia" name="experiencia" rows="4" placeholder="Años de experiencia, tipo de licencia, rutas o servicios habituales, etc." data-i18n-placeholder="postulaciones.experiencePlaceholder"></textarea>
         </div>
         <div class="field field-full form-actions">
-          <button type="submit" class="btn btn-primary" data-send="email">Enviar por email</button>
+          <button type="submit" class="btn btn-primary" data-send="email" data-i18n="form.sendEmail">Enviar por email</button>
           <button type="button" class="btn btn-whatsapp" data-send="whatsapp">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.6 6.3A8.9 8.9 0 0 0 3.3 16.9L2 22l5.2-1.4A8.9 8.9 0 0 0 21 12.1a8.9 8.9 0 0 0-3.4-5.8Zm-5.6 13.6h-.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.8.8.8-2.7-.2-.3a7.4 7.4 0 1 1 6.4 3.4Zm4-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1s-.6.7-.7.8-.3.2-.5.1a6 6 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.6 10.6 0 0 0 4.2 3.7c.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.3-.5 1.5-1s.2-.9.1-1c0-.1-.2-.2-.4-.3Z"/></svg>
-            Enviar por WhatsApp
+            <span data-i18n="form.sendWhatsapp">Enviar por WhatsApp</span>
           </button>
-          <p class="form-note" id="postulacionFormNote">Ni el mail ni WhatsApp pueden llevar los archivos adjuntos — acordate de mandar el CV y el Registro ahí una vez que se abra.</p>
+          <p class="form-note" id="postulacionFormNote" data-i18n="postulaciones.note">Ni el mail ni WhatsApp pueden llevar los archivos adjuntos — acordate de mandar el CV y el Registro ahí una vez que se abra.</p>
         </div>
       </form>
     </div>
@@ -293,14 +329,14 @@
   <!-- ===== CONTACTO ===== -->
   <section class="section section-navy" id="contacto">
     <div class="wrap contacto-inner">
-      <p class="eyebrow eyebrow-light">Estamos para ayudarte</p>
-      <h2 class="section-title">Hablemos</h2>
-      <p class="section-lead">Escribinos por el medio que prefieras — te contestamos a la brevedad, todos los días dentro de nuestro horario de atención.</p>
+      <p class="eyebrow eyebrow-light" data-i18n="contacto.eyebrow">Estamos para ayudarte</p>
+      <h2 class="section-title" data-i18n="contacto.title">Hablemos</h2>
+      <p class="section-lead" data-i18n="contacto.lead">Escribinos por el medio que prefieras — te contestamos a la brevedad, todos los días dentro de nuestro horario de atención.</p>
 
       <div class="contacto-actions reveal">
         <a href="https://wa.me/5491151821276" target="_blank" rel="noopener" class="btn btn-primary">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.6 6.3A8.9 8.9 0 0 0 3.3 16.9L2 22l5.2-1.4A8.9 8.9 0 0 0 21 12.1a8.9 8.9 0 0 0-3.4-5.8Zm-5.6 13.6h-.1a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.8.8.8-2.7-.2-.3a7.4 7.4 0 1 1 6.4 3.4Zm4-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1s-.6.7-.7.8-.3.2-.5.1a6 6 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2 4.7 4.7 0 0 0 1 2.5 10.6 10.6 0 0 0 4.2 3.7c.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.3-.5 1.5-1s.2-.9.1-1c0-.1-.2-.2-.4-.3Z"/></svg>
-          <span>Escribinos por WhatsApp</span>
+          <span data-i18n="contacto.whatsappCta">Escribinos por WhatsApp</span>
         </a>
         <a href="mailto:turismoisabelreservas@gmail.com" class="btn btn-outline">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 5.5h17a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Zm.9 2 7.6 5.7 7.6-5.7H4.4Zm15.6 1.4-7.5 5.6a1 1 0 0 1-1.2 0L3.8 8.9V16.5h16.2V8.9Z"/></svg>
@@ -336,20 +372,20 @@
     </a>
 
     <div class="footer-col">
-      <h3>Ubicación</h3>
+      <h3 data-i18n="footer.location">Ubicación</h3>
       <p>Capital Federal, Mataderos</p>
     </div>
 
     <div class="footer-col">
-      <h3>Horarios de atención</h3>
-      <p class="mono">Lunes a viernes de 6 a 19hs</p>
-      <p class="mono">Sábados de 7 a 19hs</p>
-      <p class="mono">Domingo de 7 a 14hs</p>
+      <h3 data-i18n="footer.hours">Horarios de atención</h3>
+      <p class="mono" data-i18n="footer.hoursWeekday">Lunes a viernes de 6 a 19hs</p>
+      <p class="mono" data-i18n="footer.hoursSaturday">Sábados de 7 a 19hs</p>
+      <p class="mono" data-i18n="footer.hoursSunday">Domingo de 7 a 14hs</p>
     </div>
   </div>
 
   <div class="wrap footer-bottom">
-    <p>© <span id="year">2026</span> Turismo Isabel. Todos los derechos reservados.</p>
+    <p data-i18n-template="footer.copyright">© 2026 Turismo Isabel. Todos los derechos reservados.</p>
   </div>
 </footer>
 
