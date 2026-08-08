@@ -102,62 +102,156 @@ if ('IntersectionObserver' in window) {
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ---------------------------------------------------------------
-// Quote form -> Google Forms
-// The <form id="quoteForm"> posts directly to the Google Form's
-// /formResponse endpoint. Google Forms doesn't allow fetch() from
-// other origins (no CORS), so instead the form targets a hidden
-// <iframe id="hidden_iframe"> — that keeps the page from navigating
-// away, and we show the confirmation in #formNote once the iframe
-// finishes loading (which happens right after Google processes it).
-// If you ever need to change a field, match its `name="entry.…"` to
-// the corresponding question in the Google Form (Form →⋮→ "Get
-// pre-filled link" is the easiest way to find each entry ID).
-// ---------------------------------------------------------------
-const quoteForm = document.getElementById('quoteForm');
-const formNote = document.getElementById('formNote');
-const formNoteDefault = formNote ? formNote.textContent : '';
-const hiddenIframe = document.getElementById('hidden_iframe');
+// No permitir elegir una fecha anterior a hoy en el formulario de cotización
 const fechaInput = document.getElementById('fecha');
-
-// No permitir elegir una fecha anterior a hoy
 if (fechaInput) {
   fechaInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 }
 
-if (quoteForm) {
-  const submitBtn = quoteForm.querySelector('button[type="submit"]');
-  const submitBtnDefault = submitBtn ? submitBtn.textContent : '';
+// ---------------------------------------------------------------
+// Ayudante compartido para mostrar/ocultar la nota de estado bajo
+// cada formulario (vuelve sola al texto por defecto a los 8s).
+// ---------------------------------------------------------------
+function makeNoteHelper(note) {
+  const noteDefault = note ? note.textContent : '';
+  let timer = null;
+  return function showNote(text, type) {
+    if (!note) return;
+    clearTimeout(timer);
+    note.textContent = text;
+    note.classList.remove('is-success', 'is-error');
+    if (type) note.classList.add(type);
+    timer = setTimeout(() => {
+      note.textContent = noteDefault;
+      note.classList.remove('is-success', 'is-error');
+    }, 8000);
+  };
+}
+
+const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').trim();
+
+// ---------------------------------------------------------------
+// COTIZACIÓN
+// "Enviar por email" postea al Google Form de siempre (vía el
+// <iframe id="hidden_iframe"> oculto, para no salir de la página).
+// "Enviar por WhatsApp" abre wa.me con los datos ya redactados.
+// Si en algún momento cambia el Google Form, actualizá el `action`
+// del <form id="quoteForm"> y los `name="entry.…"` de cada input
+// (Form → ⋮ → "Obtener enlace con campos completados" para ver
+// cada entry ID).
+// ---------------------------------------------------------------
+(function setupQuoteForm() {
+  const form = document.getElementById('quoteForm');
+  if (!form) return;
+
+  const showNote = makeNoteHelper(document.getElementById('formNote'));
+  const emailBtn = form.querySelector('[data-send="email"]');
+  const waBtn = form.querySelector('[data-send="whatsapp"]');
+  const emailBtnDefault = emailBtn ? emailBtn.textContent : '';
+  const hiddenIframe = document.getElementById('hidden_iframe');
   let isSubmitting = false;
 
-  quoteForm.addEventListener('submit', () => {
-    // Dejamos que la validación nativa de HTML5 (required, etc.) actúe:
-    // si el formulario no es válido, el navegador cancela el submit y
-    // este bloque no llega a ejecutarse.
-    if (!quoteForm.checkValidity()) return;
-
+  form.addEventListener('submit', () => {
+    // Dejamos que la validación nativa de HTML5 actúe: si el formulario
+    // no es válido, el navegador cancela el submit y esto no se ejecuta.
+    if (!form.checkValidity()) return;
     isSubmitting = true;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Enviando…';
+    if (emailBtn) { emailBtn.disabled = true; emailBtn.textContent = 'Enviando…'; }
+    if (waBtn) waBtn.disabled = true;
   });
 
   if (hiddenIframe) {
     hiddenIframe.addEventListener('load', () => {
       if (!isSubmitting) return;
       isSubmitting = false;
-
-      quoteForm.reset();
-      formNote.textContent = '¡Listo! Recibimos tu consulta, te contestamos por email a la brevedad.';
-      formNote.classList.add('is-success');
-      formNote.classList.remove('is-error');
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = submitBtnDefault;
-
-      setTimeout(() => {
-        formNote.textContent = formNoteDefault;
-        formNote.classList.remove('is-success');
-      }, 8000);
+      form.reset();
+      showNote('¡Listo! Recibimos tu consulta, te contestamos por email a la brevedad.', 'is-success');
+      if (emailBtn) { emailBtn.disabled = false; emailBtn.textContent = emailBtnDefault; }
+      if (waBtn) waBtn.disabled = false;
     });
   }
-}
+
+  if (waBtn) {
+    waBtn.addEventListener('click', () => {
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const text = [
+        'Hola! Quiero pedir una cotización:',
+        `Nombre: ${fieldValue(form, 'nombre')}`,
+        `Email: ${fieldValue(form, 'email')}`,
+        `Celular: ${fieldValue(form, 'celular')}`,
+        `Fecha: ${fieldValue(form, 'fecha')}`,
+        `Origen: ${fieldValue(form, 'origen')}`,
+        `Destino: ${fieldValue(form, 'destino')}`,
+        `Horario ida: ${fieldValue(form, 'horaIda')}`,
+        `Horario vuelta: ${fieldValue(form, 'horaVuelta')}`,
+        `Pasajeros: ${fieldValue(form, 'pasajeros')}`,
+        `Notas: ${fieldValue(form, 'mensaje') || '-'}`,
+      ].join('\n');
+      window.open(`https://wa.me/5491151821276?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      showNote('Se abrió WhatsApp con tus datos cargados.', 'is-success');
+    });
+  }
+})();
+
+// ---------------------------------------------------------------
+// POSTULACIONES
+// "Enviar por email" abre el cliente de mail (mailto) con asunto y
+// cuerpo precargados. "Enviar por WhatsApp" abre wa.me. Ninguno de
+// los dos puede llevar el CV adjunto automáticamente (ni mailto ni
+// wa.me soportan archivos por URL) — por eso, si el postulante eligió
+// un archivo, se lo recordamos en la nota debajo de los botones.
+// Cambiá el mail de destino más abajo si RRHH usa una casilla
+// distinta a la que está puesta.
+// ---------------------------------------------------------------
+(function setupPostulacionForm() {
+  const form = document.getElementById('postulacionForm');
+  if (!form) return;
+
+  const showNote = makeNoteHelper(document.getElementById('postulacionFormNote'));
+  const waBtn = form.querySelector('[data-send="whatsapp"]');
+  const fileInput = form.querySelector('input[type="file"]');
+  const destinoMail = 'turismoisabelrrhh@gmail.com';
+
+  const buildMessage = () => {
+    const hasFile = !!(fileInput && fileInput.files && fileInput.files.length);
+    const lines = [
+      `Nombre: ${fieldValue(form, 'postNombre')}`,
+      `Email: ${fieldValue(form, 'postEmail')}`,
+      `Teléfono: ${fieldValue(form, 'postTelefono')}`,
+      `Experiencia: ${fieldValue(form, 'postExperiencia') || '-'}`,
+    ];
+    return { lines, hasFile };
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const { lines, hasFile } = buildMessage();
+    const subject = encodeURIComponent('Postulación Chofer - Turismo Isabel');
+    const body = encodeURIComponent(lines.join('\n'));
+    window.location.href = `mailto:${destinoMail}?subject=${subject}&body=${body}`;
+
+    showNote(
+      hasFile
+        ? 'Se abrió tu mail con tus datos — no te olvides de adjuntar el CV antes de enviarlo.'
+        : 'Se abrió tu mail con tus datos cargados.',
+      'is-success'
+    );
+  });
+
+  if (waBtn) {
+    waBtn.addEventListener('click', () => {
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const { lines, hasFile } = buildMessage();
+      const text = ['Hola! Quiero postularme como chofer:', ...lines].join('\n');
+      window.open(`https://wa.me/5491151821276?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      showNote(
+        hasFile
+          ? 'Se abrió WhatsApp con tus datos — no te olvides de adjuntar el CV en el chat.'
+          : 'Se abrió WhatsApp con tus datos cargados.',
+        'is-success'
+      );
+    });
+  }
+})();
