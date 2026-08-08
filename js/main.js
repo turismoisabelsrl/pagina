@@ -185,7 +185,7 @@ const translations = {
     'postulaciones.lead': 'Si tenés experiencia en transporte de pasajeros, contanos sobre vos y dejanos tu CV. Nos vamos a contactar en caso de necesitar coordinar una entrevista.',
     'postulaciones.cv': 'CV',
     'postulaciones.registro': 'Registro',
-    'postulaciones.attachHint': 'Adjuntalo vos en el mail o WhatsApp que se abra al enviar este formulario.',
+    'postulaciones.attachHint': 'Adjuntalo en el mail o WhatsApp que se abra al enviar este formulario.',
     'postulaciones.experienceLabel': 'Contanos tu experiencia',
     'postulaciones.experiencePlaceholder': 'Años de experiencia, tipo de licencia, rutas o servicios habituales, etc.',
     'postulaciones.note': 'Ni el mail ni WhatsApp pueden llevar los archivos adjuntos — acordate de mandar el CV y el Registro ahí una vez que se abra.',
