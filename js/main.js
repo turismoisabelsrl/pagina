@@ -199,8 +199,11 @@ const translations = {
     'footer.hoursSaturday': 'Sábados de 7 a 19hs',
     'footer.hoursSunday': 'Domingo de 7 a 14hs',
     'footer.copyright': '© {year} Turismo Isabel. Todos los derechos reservados.',
-    'msg.quoteGreeting': 'Hola! Quiero pedir una cotización:',
+    'msg.quoteGreeting': '🚐 Solicitud de cotización — Turismo Isabel',
     'msg.quoteSubject': 'Pedido de cotización - Turismo Isabel',
+    'msg.sectionContact': '👤 Contacto',
+    'msg.sectionTrip': '🗺️ Viaje',
+    'msg.sectionNotes': '📝 Notas',
     'msg.name': 'Nombre',
     'msg.email': 'Email',
     'msg.cell': 'Celular',
@@ -288,8 +291,11 @@ const translations = {
     'footer.hoursSaturday': 'Saturdays, 7 AM–7 PM',
     'footer.hoursSunday': 'Sundays, 7 AM–2 PM',
     'footer.copyright': '© {year} Turismo Isabel. All rights reserved.',
-    'msg.quoteGreeting': "Hi! I'd like to request a quote:",
+    'msg.quoteGreeting': '🚐 Quote Request — Turismo Isabel',
     'msg.quoteSubject': 'Quote Request - Turismo Isabel',
+    'msg.sectionContact': '👤 Contact',
+    'msg.sectionTrip': '🗺️ Trip',
+    'msg.sectionNotes': '📝 Notes',
     'msg.name': 'Name',
     'msg.email': 'Email',
     'msg.cell': 'Cell phone',
@@ -377,8 +383,11 @@ const translations = {
     'footer.hoursSaturday': 'Sábados, das 7h às 19h',
     'footer.hoursSunday': 'Domingo, das 7h às 14h',
     'footer.copyright': '© {year} Turismo Isabel. Todos os direitos reservados.',
-    'msg.quoteGreeting': 'Olá! Quero pedir um orçamento:',
+    'msg.quoteGreeting': '🚐 Pedido de Orçamento — Turismo Isabel',
     'msg.quoteSubject': 'Pedido de Orçamento - Turismo Isabel',
+    'msg.sectionContact': '👤 Contato',
+    'msg.sectionTrip': '🗺️ Viagem',
+    'msg.sectionNotes': '📝 Observações',
     'msg.name': 'Nome',
     'msg.email': 'Email',
     'msg.cell': 'Celular',
@@ -534,18 +543,29 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
   const showNote = makeNoteHelper(document.getElementById('formNote'), 'cotizacion.note');
   const destinoMail = 'turismoisabelreservas@gmail.com';
 
-  const buildQuoteLines = () => [
+  // Arma el mensaje agrupado en secciones (Contacto / Viaje / Notas) con
+  // líneas en blanco entre cada bloque — sigue siendo texto plano (mailto
+  // y wa.me no soportan HTML), pero así se lee mucho más ordenado tanto
+  // en el mail como en WhatsApp.
+  const buildQuoteMessage = () => [
+    t('msg.quoteGreeting'),
+    '',
+    t('msg.sectionContact'),
     `${t('msg.name')}: ${fieldValue(form, 'nombre')}`,
     `${t('msg.email')}: ${fieldValue(form, 'email')}`,
     `${t('msg.cell')}: ${fieldValue(form, 'celular')}`,
+    '',
+    t('msg.sectionTrip'),
     `${t('msg.date')}: ${fieldValue(form, 'fecha')}`,
     `${t('msg.origin')}: ${fieldValue(form, 'origen')}`,
     `${t('msg.destination')}: ${fieldValue(form, 'destino')}`,
     `${t('msg.timeOut')}: ${fieldValue(form, 'horaIda')}`,
     `${t('msg.timeReturn')}: ${fieldValue(form, 'horaVuelta')}`,
     `${t('msg.passengers')}: ${fieldValue(form, 'pasajeros')}`,
-    `${t('msg.notes')}: ${fieldValue(form, 'mensaje') || '-'}`,
-  ];
+    '',
+    t('msg.sectionNotes'),
+    fieldValue(form, 'mensaje') || '-',
+  ].join('\n');
 
   // El botón "Enviar por email" es el submit del form: dejamos que la
   // validación nativa de HTML5 actúe (si falta un campo requerido, el
@@ -556,9 +576,8 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
     e.preventDefault();
     if (!form.checkValidity()) return;
 
-    const lines = buildQuoteLines();
     const subject = encodeURIComponent(t('msg.quoteSubject'));
-    const body = encodeURIComponent([t('msg.quoteGreeting'), ...lines].join('\n'));
+    const body = encodeURIComponent(buildQuoteMessage());
     window.location.href = `mailto:${destinoMail}?subject=${subject}&body=${body}`;
 
     showNote(t('msg.quoteEmailSuccess'), 'is-success');
@@ -568,8 +587,7 @@ const fieldValue = (form, id) => (form.querySelector('#' + id)?.value || '').tri
   if (waBtn) {
     waBtn.addEventListener('click', () => {
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      const text = [t('msg.quoteGreeting'), ...buildQuoteLines()].join('\n');
-      window.open(`https://wa.me/5491153061418?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      window.open(`https://wa.me/5491153061418?text=${encodeURIComponent(buildQuoteMessage())}`, '_blank', 'noopener');
       showNote(t('msg.quoteWaSuccess'), 'is-success');
     });
   }
